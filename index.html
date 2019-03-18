@@ -1,0 +1,49 @@
+<css-doodle>
+  :doodle {
+    @grid: 10 / 90vmin;
+    @shape: hexagon;
+    background: #0a0c27;
+  }
+  @even{
+    @shape: hexagon;
+    background: #fff;
+  }
+  @odd{
+    @shape: hexagon;
+    background: #fff;
+  }
+  :after, :before {
+    content: '';
+    position: absolute;
+    @size: 100%;
+    transform-origin: 1 0;
+  }
+
+  :after{
+    background: @p(#0040ff);
+    transform: translateY(100%) skewX(45deg);
+  }
+  
+    --r: @rand(360deg);
+  --n: calc(
+      @abs(@abs(@row() - 8) 
+    + @abs(@col() - 8) - 15) / 15
+  );
+ 
+  transform: rotate(var(--r));
+  
+  border-left-color: hsl(
+    calc(var(--n) * 360 + 120), 60%, 60%
+  );
+  
+  animation: 
+    spin calc(5.6s / var(--n)) linear infinite;
+  
+  @keyframes spin {
+    to { 
+      transform: rotateY(
+        calc(var(--r) + @pick(1turn, -1turn))
+      
+      );
+    }
+  }
